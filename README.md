@@ -33,7 +33,7 @@ The site integrates with the Silica authentication backend running at `67.205.15
 
 ## License Plans
 
-- **Lifetime License**: $20 USD (1000 days)
+- **Lifetime License**: $20 USD (Lifetime)
 - **Monthly License**: $5 USD (30 days)
 
 All licenses include full access to Silica Client features and Discord support. 
