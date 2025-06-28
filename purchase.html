@@ -41,7 +41,10 @@
                                             <input type="radio" name="product_type" id="monthly" value="monthly" class="d-none">
                                             <label for="monthly" class="plan-label p-3 d-block text-center border rounded cursor-pointer">
                                                 <h5>Monthly License</h5>
-                                                <p class="mb-0 text-primary fw-bold">$5.00</p>
+                                                <p class="mb-0 text-primary fw-bold">
+                                                    <span id="monthlyPrice">$5.00</span>
+                                                    <span id="monthlyOriginal" class="text-decoration-line-through text-muted d-none"></span>
+                                                </p>
                                                 <small class="text-muted">30 days access</small>
                                             </label>
                                         </div>
@@ -52,7 +55,10 @@
                                             <label for="lifetime" class="plan-label p-3 d-block text-center border rounded cursor-pointer">
                                                 <span class="badge bg-danger position-absolute">BEST VALUE</span>
                                                 <h5>Lifetime License</h5>
-                                                <p class="mb-0 text-primary fw-bold">$20.00</p>
+                                                <p class="mb-0 text-primary fw-bold">
+                                                    <span id="lifetimePrice">$20.00</span>
+                                                    <span id="lifetimeOriginal" class="text-decoration-line-through text-muted d-none"></span>
+                                                </p>
                                                 <small class="text-muted">1000 days access</small>
                                             </label>
                                         </div>
@@ -69,11 +75,29 @@
                                     <small class="text-muted">Enter your full Discord username</small>
                                 </div>
                                 
-                                <div class="mb-4">
+                                <div class="mb-3">
                                     <label for="email" class="form-label">Email Address</label>
                                     <input type="email" class="form-control" id="email" required 
                                            placeholder="your@email.com">
                                     <small class="text-muted">You'll receive your login credentials here</small>
+                                </div>
+
+                                <!-- Discount Code Section -->
+                                <div class="mb-4">
+                                    <label for="discount_code" class="form-label">Discount Code <span class="text-muted">(Optional)</span></label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="discount_code" 
+                                               placeholder="Enter discount code">
+                                        <button class="btn btn-outline-secondary" type="button" id="applyDiscount">Apply</button>
+                                    </div>
+                                    <div id="discountMessage" class="mt-2"></div>
+                                    <div id="discountApplied" class="mt-2 d-none">
+                                        <div class="alert alert-success">
+                                            <i class="fas fa-check-circle"></i> 
+                                            Discount applied: <span id="discountDetails"></span>
+                                            <button type="button" class="btn btn-sm btn-outline-success ms-2" id="removeDiscount">Remove</button>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="alert alert-info mb-4">
