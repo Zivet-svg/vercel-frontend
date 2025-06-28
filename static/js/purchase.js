@@ -179,8 +179,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 };
             }
             
-            // Create checkout session
-            const response = await fetch('http://67.205.158.33:5000/auth/register', {
+            // Trigger Discord register flow (same as !register command)
+            const response = await fetch('https://afa2-67-205-158-33.ngrok-free.app/auth/trigger-discord-register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -191,19 +191,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     product_type: productType,
                     payment_method: paymentMethod,
                     payment_proof: paymentProof,
-                    is_active: false,
-                    duration_days: 0,
-                    status: 'pending',
                     discount_info: discountInfo,
                     final_price: finalPrice
                 }),
             });
             
             if (response.ok) {
-                let message = 'Your payment proof has been submitted! An admin will review and activate your account after confirming payment.';
+                const data = await response.json();
+                let message = data.message || 'Registration complete! Check your Discord DMs for login credentials.';
+                
                 if (discountInfo && discountInfo.savings > 0) {
                     message += `\n\nDiscount Applied: ${discountInfo.code}\nFinal Price: $${finalPrice.toFixed(2)} (You saved $${discountInfo.savings.toFixed(2)}!)`;
                 }
+                
                 alert(message);
                 purchaseForm.reset();
                 appliedDiscount = null;
