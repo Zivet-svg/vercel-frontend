@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         
         // Get form values
-        const discordUsername = document.getElementById('discord_username').value.trim();
+        const discordUserId = document.getElementById('discord_user_id').value.trim();
         const email = document.getElementById('email').value.trim();
         const productType = document.querySelector('input[name="product_type"]:checked').value;
         const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Basic validation
-        if (!discordUsername || !email) {
+        if (!discordUserId || !email) {
             alert('Please fill in all fields');
             return;
         }
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 body: JSON.stringify({
                     email: email,
-                    discord_username: discordUsername,
+                    discord_user_id: discordUserId,
                     product_type: productType,
                     payment_method: paymentMethod,
                     payment_proof: paymentProof,
