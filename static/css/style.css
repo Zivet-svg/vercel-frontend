@@ -270,4 +270,59 @@ body {
     .pricing-card {
         margin-bottom: 20px;
     }
+}
+
+/* Discord Popup Modal Styles */
+#discordPopup .modal-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+}
+
+#discordPopup .modal-content {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+#discordPopup .fa-check-circle {
+    animation: checkBounce 0.6s ease;
+}
+
+@keyframes checkBounce {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+#discordPopup .alert-info {
+    background-color: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    color: var(--primary-color);
+}
+
+#discordPopup .btn-primary {
+    background: #5865F2;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+#discordPopup .btn-primary:hover {
+    background: #4752C4;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4);
+}
+
+#discordPopup code {
+    background-color: #f0f0f0;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+/* Modal backdrop blur effect */
+.modal-backdrop.show {
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.5);
 } 
