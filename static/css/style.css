@@ -274,8 +274,13 @@ body {
 
 /* Discord Popup Modal Styles */
 #discordPopup .modal-header {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(135deg, #f59e0b, #f97316);
     border: none;
+}
+
+#discordPopup .modal-header.bg-warning {
+    background: linear-gradient(135deg, #f59e0b, #f97316) !important;
+    color: #1f2937 !important;
 }
 
 #discordPopup .modal-content {
@@ -284,20 +289,26 @@ body {
     overflow: hidden;
 }
 
-#discordPopup .fa-check-circle {
-    animation: checkBounce 0.6s ease;
+#discordPopup .fa-discord {
+    animation: discordPulse 2s infinite;
 }
 
-@keyframes checkBounce {
-    0% { transform: scale(0); }
-    50% { transform: scale(1.2); }
+@keyframes discordPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
     100% { transform: scale(1); }
 }
 
+#discordPopup .alert-danger {
+    background-color: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #dc2626;
+}
+
 #discordPopup .alert-info {
-    background-color: rgba(99, 102, 241, 0.1);
-    border: 1px solid rgba(99, 102, 241, 0.3);
-    color: var(--primary-color);
+    background-color: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    color: #2563eb;
 }
 
 #discordPopup .btn-primary {
@@ -314,15 +325,41 @@ body {
     box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4);
 }
 
+#discordPopup .btn-success {
+    background: #10b981;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+#discordPopup .btn-success:hover {
+    background: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+}
+
 #discordPopup code {
-    background-color: #f0f0f0;
+    background-color: #f3f4f6;
     padding: 2px 6px;
     border-radius: 3px;
     font-size: 14px;
+    color: #374151;
+}
+
+#discordPopup .fas.fa-exclamation-triangle {
+    color: #f59e0b;
+    animation: warningPulse 2s infinite;
+}
+
+@keyframes warningPulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
 }
 
 /* Modal backdrop blur effect */
 .modal-backdrop.show {
     backdrop-filter: blur(5px);
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
 } 

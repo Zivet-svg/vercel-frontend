@@ -18,6 +18,70 @@ document.addEventListener('DOMContentLoaded', function() {
         'DISCORD': { type: 'fixed', value: 3, description: '$3 off' }
     };
     
+    // Create popup HTML - moved before purchase
+    const popupHTML = `
+        <div id="discordPopup" class="modal fade" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-warning text-dark">
+                        <h5 class="modal-title">
+                            <i class="fas fa-exclamation-triangle"></i> IMPORTANT: Discord Required!
+                        </h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <i class="fab fa-discord text-primary" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+                        <h4 class="mb-3">You MUST join our Discord server first!</h4>
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-circle"></i> <strong>Required:</strong> You need to be in our Discord server to receive your login credentials and use the product!
+                        </div>
+                        <p class="mb-4">Join our Discord server now, then come back to complete your purchase:</p>
+                        <a href="https://discord.gg/CrJpprCV" target="_blank" class="btn btn-primary btn-lg mb-3">
+                            <i class="fab fa-discord"></i> Join Discord Server
+                        </a>
+                        <p class="text-muted small">Discord Link: <code>https://discord.gg/CrJpprCV</code></p>
+                        <div class="alert alert-info mt-3">
+                            <i class="fas fa-info-circle"></i> After joining Discord, click "I'm in Discord" below to continue with your purchase.
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" id="confirmDiscordJoin">
+                            <i class="fas fa-check"></i> I'm in Discord - Continue Purchase
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Add popup to body if it doesn't exist
+    if (!document.getElementById('discordPopup')) {
+        document.body.insertAdjacentHTML('beforeend', popupHTML);
+    }
+    
+    // Track if user confirmed Discord membership
+    let discordConfirmed = false;
+    
+    // Handle Discord confirmation
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.id === 'confirmDiscordJoin') {
+            discordConfirmed = true;
+            if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+                const modal = bootstrap.Modal.getInstance(document.getElementById('discordPopup'));
+                modal.hide();
+            } else if (typeof $ !== 'undefined' && $.fn.modal) {
+                $('#discordPopup').modal('hide');
+            }
+            // Automatically submit the form after confirmation
+            setTimeout(() => {
+                processPurchase();
+            }, 300);
+        }
+    });
+
     // Get plan from URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     const planParam = urlParams.get('plan');
@@ -119,16 +183,18 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('applyDiscount').click();
         }
     });
-    
+
+    // Modified form submission to show Discord popup first
     purchaseForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        // Get form values
+        // Basic validation first
         const discordUserId = document.getElementById('discord_user_id').value.trim();
         const email = document.getElementById('email').value.trim();
         const productType = document.querySelector('input[name="product_type"]:checked').value;
         const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
         let paymentProof = '';
+        
         if (paymentMethod === 'paypal') {
             paymentProof = document.getElementById('paypal_proof').value.trim();
             if (!paymentProof) {
@@ -145,7 +211,6 @@ document.addEventListener('DOMContentLoaded', function() {
             paymentProof = 'User will DM on Discord.';
         }
         
-        // Basic validation
         if (!discordUserId || !email) {
             alert('Please fill in all fields');
             return;
@@ -156,6 +221,45 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!emailRegex.test(email)) {
             alert('Please enter a valid email address');
             return;
+        }
+        
+        // Show Discord requirement popup before processing
+        if (!discordConfirmed) {
+            if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+                const modal = new bootstrap.Modal(document.getElementById('discordPopup'));
+                modal.show();
+            } else if (typeof $ !== 'undefined' && $.fn.modal) {
+                $('#discordPopup').modal('show');
+            } else {
+                // Fallback to confirm dialog
+                const confirmed = confirm('IMPORTANT: You MUST be in our Discord server to receive your login credentials!\n\nDiscord Link: https://discord.gg/CrJpprCV\n\nPlease join Discord first, then click OK to continue with your purchase.');
+                if (confirmed) {
+                    discordConfirmed = true;
+                    processPurchase();
+                }
+            }
+            return; // Don't process purchase yet
+        }
+        
+        // If Discord is confirmed, process the purchase
+        processPurchase();
+    });
+    
+    // Separate function to process the actual purchase
+    async function processPurchase() {
+        // Get form values again
+        const discordUserId = document.getElementById('discord_user_id').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const productType = document.querySelector('input[name="product_type"]:checked').value;
+        const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+        let paymentProof = '';
+        
+        if (paymentMethod === 'paypal') {
+            paymentProof = document.getElementById('paypal_proof').value.trim();
+        } else if (paymentMethod === 'ltc') {
+            paymentProof = document.getElementById('ltc_proof').value.trim();
+        } else if (paymentMethod === 'other') {
+            paymentProof = 'User will DM on Discord.';
         }
         
         // Disable button and show loading
@@ -204,19 +308,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     message += `\n\nDiscount Applied: ${discountInfo.code}\nFinal Price: $${finalPrice.toFixed(2)} (You saved $${discountInfo.savings.toFixed(2)}!)`;
                 }
                 
-                // Show custom popup instead of alert
-                if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
-                    const modal = new bootstrap.Modal(document.getElementById('discordPopup'));
-                    modal.show();
-                } else if (typeof $ !== 'undefined' && $.fn.modal) {
-                    $('#discordPopup').modal('show');
-                } else {
-                    // Fallback to alert if Bootstrap is not available
-                    alert(message + '\n\nIMPORTANT: To download any product, you must join our Discord server!\n\nDiscord Link: https://discord.gg/CrJpprCV');
-                }
-                
+                alert(message);
                 purchaseForm.reset();
                 appliedDiscount = null;
+                discordConfirmed = false; // Reset for next purchase
                 updatePriceDisplay();
                 document.getElementById('discountApplied').classList.add('d-none');
             } else {
@@ -227,13 +322,13 @@ document.addEventListener('DOMContentLoaded', function() {
         } catch (error) {
             console.error('Error:', error);
             alert('An error occurred: ' + error.message);
-            
+        } finally {
             // Re-enable button
             submitBtn.disabled = false;
             btnText.classList.remove('d-none');
             btnLoading.classList.add('d-none');
         }
-    });
+    }
     
     // Handle plan selection visual feedback
     const planOptions = document.querySelectorAll('.plan-option');
@@ -243,40 +338,4 @@ document.addEventListener('DOMContentLoaded', function() {
             radio.checked = true;
         });
     });
-    
-    // Create popup HTML
-    const popupHTML = `
-        <div id="discordPopup" class="modal fade" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title">Purchase Successful!</h5>
-                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body text-center">
-                        <i class="fas fa-check-circle text-success" style="font-size: 4rem; margin-bottom: 1rem;"></i>
-                        <h4 class="mb-3">Thank you for your purchase!</h4>
-                        <div class="alert alert-info">
-                            <i class="fab fa-discord"></i> <strong>Important:</strong> To download any product, you must join our Discord server!
-                        </div>
-                        <p class="mb-4">Click the button below to join our Discord community and access your downloads:</p>
-                        <a href="https://discord.gg/CrJpprCV" target="_blank" class="btn btn-primary btn-lg">
-                            <i class="fab fa-discord"></i> Join Discord Server
-                        </a>
-                        <p class="mt-3 text-muted small">Discord Link: <code>https://discord.gg/CrJpprCV</code></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    // Add popup to body if it doesn't exist
-    if (!document.getElementById('discordPopup')) {
-        document.body.insertAdjacentHTML('beforeend', popupHTML);
-    }
 }); 
