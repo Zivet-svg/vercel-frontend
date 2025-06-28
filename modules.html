@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modules - Silica Client</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-cube"></i> Silica Client
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/modules">Modules</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/#pricing">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary text-white ms-2" href="/purchase">Purchase Now</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="py-5 bg-primary text-white">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-3">Complete Module Library</h1>
+            <p class="lead">Discover every feature that makes Silica Client the most advanced Minecraft client</p>
+        </div>
+    </section>
+
+    <!-- Combat Modules -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h2 class="text-center mb-4"><i class="fas fa-sword text-danger"></i> Combat Modules</h2>
+                    <p class="text-center text-muted mb-5">Dominate PvP with advanced combat assistance</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="text-center mb-3">
+                            <i class="fas fa-crosshairs fa-3x text-danger"></i>
+                            <h4 class="mt-2">KillAura</h4>
+                        </div>
+                        <p>Advanced combat automation with smart targeting and anti-detection features.</p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success"></i> Multiple targeting modes</li>
+                            <li><i class="fas fa-check text-success"></i> Customizable reach and CPS</li>
+                            <li><i class="fas fa-check text-success"></i> Anti-bot detection</li>
+                            <li><i class="fas fa-check text-success"></i> Rotation smoothing</li>
+                            <li><i class="fas fa-check text-success"></i> Anti-cheat bypass</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="text-center mb-3">
+                            <i class="fas fa-bullseye fa-3x text-danger"></i>
+                            <h4 class="mt-2">AimAssist</h4>
+                        </div>
+                        <p>Subtle aim correction for improved accuracy without detection.</p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success"></i> Configurable aim strength</li>
+                            <li><i class="fas fa-check text-success"></i> Smart targeting priority</li>
+                            <li><i class="fas fa-check text-success"></i> Randomized movements</li>
+                            <li><i class="fas fa-check text-success"></i> FOV-based targeting</li>
+                            <li><i class="fas fa-check text-success"></i> Legit-style corrections</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="text-center mb-3">
+                            <i class="fas fa-shield-alt fa-3x text-danger"></i>
+                            <h4 class="mt-2">Velocity</h4>
+                        </div>
+                        <p>Reduce or eliminate knockback from enemy attacks.</p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success"></i> Horizontal/vertical control</li>
+                            <li><i class="fas fa-check text-success"></i> Percentage-based reduction</li>
+                            <li><i class="fas fa-check text-success"></i> Jump reset compatibility</li>
+                            <li><i class="fas fa-check text-success"></i> Packet-based bypass</li>
+                            <li><i class="fas fa-check text-success"></i> Anti-void protection</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="module-card">
+                        <div class="module-header">
+                            <i class="fas fa-vest"></i>
+                            <h4>AutoArmor</h4>
+                        </div>
+                        <div class="module-body">
+                            <p>Automatically equip the best armor available in your inventory.</p>
+                            <ul class="feature-list">
+                                <li>Smart armor priority system</li>
+                                <li>Enchantment value calculation</li>
+                                <li>Durability consideration</li>
+                                <li>Hotbar/inventory scanning</li>
+                                <li>Delay randomization</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="module-card">
+                        <div class="module-header">
+                            <i class="fas fa-fist-raised"></i>
+                            <h4>Criticals</h4>
+                        </div>
+                        <div class="module-body">
+                            <p>Force critical hits for maximum damage output.</p>
+                            <ul class="feature-list">
+                                <li>Multiple critical modes</li>
+                                <li>Packet manipulation</li>
+                                <li>Jump-based criticals</li>
+                                <li>Mini-jump optimization</li>
+                                <li>Bypass modern anti-cheats</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="module-card">
+                        <div class="module-header">
+                            <i class="fas fa-heart"></i>
+                            <h4>AutoTotem</h4>
+                        </div>
+                        <div class="module-body">
+                            <p>Automatically place totems of undying for survival.</p>
+                            <ul class="feature-list">
+                                <li>Health-based totem switching</li>
+                                <li>Instant totem placement</li>
+                                <li>Offhand management</li>
+                                <li>Crystal damage prediction</li>
+                                <li>Smart inventory scanning</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Render Modules -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h2 class="text-center mb-4"><i class="fas fa-eye text-info"></i> Render Modules</h2>
+                    <p class="text-center text-muted mb-5">See everything with advanced visual enhancements</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="module-card">
+                        <div class="module-header">
+                            <i class="fas fa-users"></i>
+                            <h4>Player ESP</h4>
+                        </div>
+                        <div class="module-body">
+                            <p>See players through walls with customizable rendering options.</p>
+                            <ul class="feature-list">
+                                <li>Box, outline, and glow rendering</li>
+                                <li>Health and armor indicators</li>
+                                <li>Distance-based scaling</li>
+                                <li>Friend/enemy color coding</li>
+                                <li>Name tags and info display</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="module-card">
+                        <div class="module-header">
+                            <i class="fas fa-box"></i>
+                            <h4>Storage ESP</h4>
+                        </div>
+                        <div class="module-body">
+                            <p>Locate chests, shulkers, and other storage containers.</p>
+                            <ul class="feature-list">
+                                <li>Multiple container types</li>
+                                <li>Item count indicators</li>
+                                <li>Valuable item detection</li>
+                                <li>Distance filtering</li>
+                                <li>Custom color schemes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="module-card">
+                        <div class="module-header">
+                            <i class="fas fa-route"></i>
+                            <h4>Tracers</h4>
+                        </div>
+                        <div class="module-body">
+                            <p>Draw lines to entities and objects of interest.</p>
+                            <ul class="feature-list">
+                                <li>Player and mob tracers</li>
+                                <li>Item and block tracers</li>
+                                <li>Customizable line styles</li>
+                                <li>Distance-based opacity</li>
+                                <li>Target filtering options</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="module-card">
+                        <div class="module-header">
+                            <i class="fas fa-lightbulb"></i>
+                            <h4>FullBright</h4>
+                        </div>
+                        <div class="module-body">
+                            <p>See clearly in dark areas without torches.</p>
+                            <ul class="feature-list">
+                                <li>Maximum brightness levels</li>
+                                <li>Gamma adjustment</li>
+                                <li>Night vision effect</li>
+                                <li>Smooth transitions</li>
+                                <li>No performance impact</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="module-card">
+                        <div class="module-header">
+                            <i class="fas fa-tv"></i>
+                            <h4>HUD</h4>
+                        </div>
+                        <div class="module-body">
+                            <p>Customizable on-screen display with vital information.</p>
+                            <ul class="feature-list">
+                                <li>Module list with animations</li>
+                                <li>Coordinates and direction</li>
+                                <li>FPS and ping display</li>
+                                <li>Armor and tool durability</li>
+                                <li>Drag-and-drop positioning</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="module-card">
+                        <div class="module-header">
+                            <i class="fas fa-eye-slash"></i>
+                            <h4>NoRender</h4>
+                        </div>
+                        <div class="module-body">
+                            <p>Remove unwanted visual effects for better performance.</p>
+                            <ul class="feature-list">
+                                <li>Disable particles and effects</li>
+                                <li>Remove weather rendering</li>
+                                <li>Hide overlays and GUI elements</li>
+                                <li>Optimize chunk rendering</li>
+                                <li>Boost FPS significantly</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exclusive Modules -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h2 class="text-center mb-4"><i class="fas fa-star text-warning"></i> Exclusive Modules</h2>
+                    <p class="text-center text-muted mb-5">Unique features you won't find anywhere else</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="feature-card">
+                        <div class="text-center mb-3">
+                            <i class="fas fa-home fa-3x text-warning"></i>
+                            <h4 class="mt-2">BaseFinder <span class="badge bg-warning">EXCLUSIVE</span></h4>
+                        </div>
+                        <p>Advanced base detection using sophisticated algorithms to locate hidden structures.</p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-star text-warning"></i> Terrain analysis and anomaly detection</li>
+                            <li><i class="fas fa-star text-warning"></i> Pattern recognition for artificial structures</li>
+                            <li><i class="fas fa-star text-warning"></i> Underground base detection</li>
+                            <li><i class="fas fa-star text-warning"></i> Bedrock pattern analysis</li>
+                            <li><i class="fas fa-star text-warning"></i> Configurable search radius</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="feature-card">
+                        <div class="text-center mb-3">
+                            <i class="fas fa-gem fa-3x text-warning"></i>
+                            <h4 class="mt-2">AncientDebrisPredictor <span class="badge bg-warning">EXCLUSIVE</span></h4>
+                        </div>
+                        <p>Predict ancient debris locations using advanced mathematical models.</p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-star text-warning"></i> Seed-based prediction algorithms</li>
+                            <li><i class="fas fa-star text-warning"></i> Chunk analysis and ore distribution</li>
+                            <li><i class="fas fa-star text-warning"></i> Probability mapping system</li>
+                            <li><i class="fas fa-star text-warning"></i> Optimal mining path calculation</li>
+                            <li><i class="fas fa-star text-warning"></i> Real-time debris location hints</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Misc Modules -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h2 class="text-center mb-4"><i class="fas fa-tools text-success"></i> Utility Modules</h2>
+                    <p class="text-center text-muted mb-5">Essential tools for enhanced gameplay</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="module-card">
+                        <div class="module-header">
+                            <i class="fas fa-hammer"></i>
+                            <h4>AutoBuilder</h4>
+                        </div>
+                        <div class="module-body">
+                            <p>Automatically build structures and place blocks with precision.</p>
+                            <ul class="feature-list">
+                                <li>Schematic-based building</li>
+                                <li>Block placement optimization</li>
+                                <li>Material requirement calculation</li>
+                                <li>Anti-grief protection</li>
+                                <li>Progress tracking and resuming</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="module-card">
+                        <div class="module-header">
+                            <i class="fas fa-mouse-pointer"></i>
+                            <h4>AutoClicker</h4>
+                        </div>
+                        <div class="module-body">
+                            <p>Automated clicking with randomization and anti-detection.</p>
+                            <ul class="feature-list">
+                                <li>Configurable CPS settings</li>
+                                <li>Randomized click timing</li>
+                                <li>Left/right click support</li>
+                                <li>Hold-to-click modes</li>
+                                <li>Bypass click detection</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="module-card">
+                        <div class="module-header">
+                            <i class="fas fa-user-plus"></i>
+                            <h4>FakePlayer</h4>
+                        </div>
+                        <div class="module-body">
+                            <p>Spawn fake players for testing and demonstration purposes.</p>
+                            <ul class="feature-list">
+                                <li>Realistic player simulation</li>
+                                <li>Custom skin and name support</li>
+                                <li>AI movement patterns</li>
+                                <li>Combat testing capabilities</li>
+                                <li>Multiple fake player support</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Client Features -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h2 class="text-center mb-4"><i class="fas fa-cogs text-primary"></i> Client Features</h2>
+                    <p class="text-center text-muted mb-5">Advanced client functionality and customization</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="feature-card">
+                        <i class="fas fa-palette fa-3x mb-3 text-primary"></i>
+                        <h4>Modern ClickGUI</h4>
+                        <p>Intuitive and customizable interface with drag-and-drop functionality, themes, and smooth animations.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="feature-card">
+                        <i class="fas fa-user-friends fa-3x mb-3 text-primary"></i>
+                        <h4>Account Switcher</h4>
+                        <p>Quickly switch between multiple Minecraft accounts with secure credential storage and one-click login.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="feature-card">
+                        <i class="fas fa-shield-alt fa-3x mb-3 text-primary"></i>
+                        <h4>Anti-Detection</h4>
+                        <p>Advanced protection against server-side anti-cheat systems with regular updates and bypass techniques.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="feature-card">
+                        <i class="fas fa-save fa-3x mb-3 text-primary"></i>
+                        <h4>Profile System</h4>
+                        <p>Save and load different configuration profiles for various servers and game modes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-5 bg-primary text-white">
+        <div class="container text-center">
+            <h2 class="mb-4">Ready to Experience Silica Client?</h2>
+            <p class="lead mb-4">Join thousands of players who have enhanced their Minecraft experience</p>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <a href="/purchase?plan=lifetime" class="btn btn-light btn-lg">
+                            <i class="fas fa-infinity"></i> Get Lifetime Access - $20
+                        </a>
+                        <a href="/purchase?plan=monthly" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-calendar"></i> Try Monthly - $5
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2025 Silica Client. All rights reserved.</p>
+            <p class="mb-0 small">By purchasing, you agree to our Terms of Service</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

@@ -5,6 +5,10 @@
       "destination": "/purchase.html"
     },
     {
+      "source": "/modules",
+      "destination": "/modules.html"
+    },
+    {
       "source": "/",
       "destination": "/index.html"
     }
