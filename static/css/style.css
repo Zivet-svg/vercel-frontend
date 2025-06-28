@@ -41,11 +41,28 @@ body {
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     height: 100%;
+    padding: 2rem;
 }
 
 .feature-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.feature-card ul {
+    padding-left: 1.5rem;
+}
+
+.feature-card ul li {
+    margin-bottom: 0.75rem;
+    position: relative;
+    padding-left: 1.75rem;
+}
+
+.feature-card ul li i {
+    position: absolute;
+    left: 0;
+    top: 0.25rem;
 }
 
 /* Pricing Cards */
