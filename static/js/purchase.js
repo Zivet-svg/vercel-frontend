@@ -18,18 +18,16 @@ document.addEventListener('DOMContentLoaded', function() {
         'DISCORD': { type: 'fixed', value: 3, description: '$3 off' }
     };
     
-    // Create popup HTML - moved before purchase
+    // Create popup HTML - shows immediately on page load
     const popupHTML = `
-        <div id="discordPopup" class="modal fade" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div id="discordPopup" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-warning text-dark">
                         <h5 class="modal-title">
                             <i class="fas fa-exclamation-triangle"></i> IMPORTANT: Discord Required!
                         </h5>
-                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body text-center">
                         <i class="fab fa-discord text-primary" style="font-size: 4rem; margin-bottom: 1rem;"></i>
@@ -50,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <button type="button" class="btn btn-success" id="confirmDiscordJoin">
                             <i class="fas fa-check"></i> I'm in Discord - Continue Purchase
                         </button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -65,20 +63,48 @@ document.addEventListener('DOMContentLoaded', function() {
     // Track if user confirmed Discord membership
     let discordConfirmed = false;
     
+    // Show popup immediately when page loads
+    setTimeout(() => {
+        if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+            const modal = new bootstrap.Modal(document.getElementById('discordPopup'));
+            modal.show();
+        } else if (typeof $ !== 'undefined' && $.fn.modal) {
+            $('#discordPopup').modal('show');
+        } else {
+            // Fallback - just show the modal div
+            document.getElementById('discordPopup').style.display = 'block';
+            document.getElementById('discordPopup').classList.add('show');
+        }
+    }, 500); // Small delay to ensure page is fully loaded
+    
     // Handle Discord confirmation
     document.addEventListener('click', function(e) {
         if (e.target && e.target.id === 'confirmDiscordJoin') {
             discordConfirmed = true;
             if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
                 const modal = bootstrap.Modal.getInstance(document.getElementById('discordPopup'));
-                modal.hide();
+                if (modal) modal.hide();
             } else if (typeof $ !== 'undefined' && $.fn.modal) {
                 $('#discordPopup').modal('hide');
+            } else {
+                // Fallback
+                document.getElementById('discordPopup').style.display = 'none';
+                document.getElementById('discordPopup').classList.remove('show');
             }
-            // Automatically submit the form after confirmation
-            setTimeout(() => {
-                processPurchase();
-            }, 300);
+        }
+        
+        // Handle close button clicks
+        if (e.target && (e.target.classList.contains('btn-close') || e.target.getAttribute('data-bs-dismiss') === 'modal')) {
+            if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+                const modal = bootstrap.Modal.getInstance(document.getElementById('discordPopup'));
+                if (modal) modal.hide();
+            } else if (typeof $ !== 'undefined' && $.fn.modal) {
+                $('#discordPopup').modal('hide');
+            } else {
+                // Fallback
+                document.getElementById('discordPopup').style.display = 'none';
+                document.getElementById('discordPopup').classList.remove('show');
+            }
         }
     });
 
@@ -184,10 +210,29 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Modified form submission to show Discord popup first
+    // Modified form submission - now only processes if Discord is confirmed
     purchaseForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
+        // Check if Discord is confirmed first
+        if (!discordConfirmed) {
+            alert('Please join our Discord server first and click "I\'m in Discord" to continue with your purchase!');
+            // Show the popup again
+            if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+                const modal = new bootstrap.Modal(document.getElementById('discordPopup'));
+                modal.show();
+            } else if (typeof $ !== 'undefined' && $.fn.modal) {
+                $('#discordPopup').modal('show');
+            }
+            return;
+        }
+        
+        // Proceed with purchase validation and processing
+        processPurchase();
+    });
+    
+    // Separate function to process the actual purchase
+    async function processPurchase() {
         // Basic validation first
         const discordUserId = document.getElementById('discord_user_id').value.trim();
         const email = document.getElementById('email').value.trim();
@@ -221,45 +266,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!emailRegex.test(email)) {
             alert('Please enter a valid email address');
             return;
-        }
-        
-        // Show Discord requirement popup before processing
-        if (!discordConfirmed) {
-            if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
-                const modal = new bootstrap.Modal(document.getElementById('discordPopup'));
-                modal.show();
-            } else if (typeof $ !== 'undefined' && $.fn.modal) {
-                $('#discordPopup').modal('show');
-            } else {
-                // Fallback to confirm dialog
-                const confirmed = confirm('IMPORTANT: You MUST be in our Discord server to receive your login credentials!\n\nDiscord Link: https://discord.gg/CrJpprCV\n\nPlease join Discord first, then click OK to continue with your purchase.');
-                if (confirmed) {
-                    discordConfirmed = true;
-                    processPurchase();
-                }
-            }
-            return; // Don't process purchase yet
-        }
-        
-        // If Discord is confirmed, process the purchase
-        processPurchase();
-    });
-    
-    // Separate function to process the actual purchase
-    async function processPurchase() {
-        // Get form values again
-        const discordUserId = document.getElementById('discord_user_id').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const productType = document.querySelector('input[name="product_type"]:checked').value;
-        const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
-        let paymentProof = '';
-        
-        if (paymentMethod === 'paypal') {
-            paymentProof = document.getElementById('paypal_proof').value.trim();
-        } else if (paymentMethod === 'ltc') {
-            paymentProof = document.getElementById('ltc_proof').value.trim();
-        } else if (paymentMethod === 'other') {
-            paymentProof = 'User will DM on Discord.';
         }
         
         // Disable button and show loading
