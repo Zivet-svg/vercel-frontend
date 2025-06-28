@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             // Trigger Discord register flow (same as !register command)
-            const response = await fetch('https://afa2-67-205-158-33.ngrok-free.app/auth/trigger-discord-register', {
+            const response = await fetch('https://9e3f-67-205-158-33.ngrok-free.app/auth/trigger-discord-register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
